@@ -47,7 +47,7 @@ export const showDataOnMap =(data,casesType='cases')=> {
 
                 fillColor={'#7dd71d'}>
                     <Popup>
-
+                       <div>Iama nb</div>
                     </Popup>
                  </Circle>
 
