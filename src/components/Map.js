@@ -2,7 +2,7 @@ import React from 'react'
 import { Map as LeafletMap, TileLayer } from "react-leaflet";
 import { showDataOnMap } from '../helper/utils';
 import '../styles/Map.css'
-const Map = ({casesType='cases',zoom,center,data}) => {
+const Map = ({casesType,zoom,center,data}) => {
   console.log('selectedCountry====+++>>>',data);
   return (
     <div className="map">

@@ -5,7 +5,7 @@ import InfoBox from './components/InfoBox';
 import LineGraph from './components/LineGraph';
 import Map from './components/Map';
 import Table from './components/Table';
-import { Sortdata } from './helper/utils';
+import { prettyPrintStat, Sortdata } from './helper/utils';
 import "leaflet/dist/leaflet.css";
 import numeral from 'numeral'
 import { Popup } from 'react-leaflet';
@@ -19,6 +19,7 @@ function App() {
   const [selectedCountryInfo,setSelectedCountryInfo] = useState({})
   const [tabledata,setTabledata] = useState([]);
   const [mapCenter, setMapCenter] = useState({ lat: 29.092952, lng: 74.7493451 });
+  const [casesType,setCasesType] = useState('cases');
   
   console.log('selectedCountryinfolatlong====>',selectedCountryInfo);
 
@@ -90,11 +91,17 @@ function App() {
           </FormControl>
         </div>
         <div className="info_stats">
-          <InfoBox title='COVID-CASES' total={2000} cases={selectedCountryInfo.todayCases} />
-          <InfoBox title='Recovers' total={1200} cases={selectedCountryInfo.todayRecovered} />
-          <InfoBox title='Deaths' total={345} cases={selectedCountryInfo.todayDeaths} />
+          <InfoBox title='COVID-CASES' isRed  onClick={(e)=>setCasesType('cases')} active={casesType==='cases'}
+           total={2000}
+            cases={prettyPrintStat(selectedCountryInfo.todayCases)} />
+          <InfoBox title='Recovers' onClick={(e)=>setCasesType('recovered')} active={casesType==='recovered'}
+          total={1200} 
+          cases={prettyPrintStat(selectedCountryInfo.todayRecovered)} />
+          <InfoBox title='Deaths' onClick={(e)=>setCasesType('deaths')} active={casesType==='deaths'} isRed
+          total={345} 
+          cases={prettyPrintStat(selectedCountryInfo.todayDeaths)} />
         </div>
-        <Map countries={countries} center={mapCenter} data={mapCenter} />
+        <Map countries={countries} center={mapCenter} data={mapCenter} casesType={casesType} />
       </div>
       {/* div right start  */}
 
@@ -104,8 +111,8 @@ function App() {
          {/* table */}
          <Table countries={tabledata}/>
         {/* grpaph */}
-        <h1>Worldwide New Cases</h1>
-        <LineGraph/>
+        <h1>Worldwide New {casesType} </h1>
+        <LineGraph casesType={casesType}/>
         </CardContent>
       </Card>
        

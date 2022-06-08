@@ -1,4 +1,6 @@
 import { Circle ,Popup} from "react-leaflet";
+import numeral from "numeral";
+
 
 const casesTypeColors = {
     cases: {
@@ -56,3 +58,7 @@ export const showDataOnMap =(data,casesType='cases')=> {
            
     
 }
+
+
+export const prettyPrintStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "+0";

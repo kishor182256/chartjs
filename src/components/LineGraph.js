@@ -79,11 +79,12 @@ const options = {
 
 
 
-const LineGraph = () => {
+const LineGraph = ({casesType}) => {
+
 
   const [datas, setData] = useState({});
 
-  const buildChartData = (data, casesType = 'cases') => {
+  const buildChartData = (data, casesType) => {
     let chartData = [];
     let lastDataPoint;
     for (let date in data.cases) {
@@ -109,7 +110,7 @@ const LineGraph = () => {
     }).catch(err => {
       console.error('https://disease.sh/v3/c', err)
     })
-  }, [datas])
+  }, [casesType])
 
 
 
